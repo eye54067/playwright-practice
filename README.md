@@ -1,1 +1,1 @@
-# playwright-practice
+# Hands-on project: Automation testing with Playwright
