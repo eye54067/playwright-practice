@@ -1,12 +1,18 @@
 import { test , expect} from '@playwright/test';
-
-test('Login page: Which test user can login successfully', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    await expect(page.getByText('Swag Labs')).toBeVisible();
-    await page.locator('#user-name').fill('standard_user');
-    await page.locator('#password').fill('secret_sauce');
-    await page.locator('#login-button').click();
-    await expect(page.getByText('Products')).toBeVisible();
+const data = require('../test-data/user.json')
+const user = data.user
+const password = data.password
+test.describe('Login page: Which test user can login successfully', () => {
+    user.forEach((u) => {
+        test(`Login with ${u.username}`, async ({ page }) => {
+            await page.goto('https://www.saucedemo.com/');
+            await expect(page.getByText('Swag Labs')).toBeVisible();
+            await page.locator('#user-name').fill(u.username);
+            await page.locator('#password').fill(password);
+            await page.locator('#login-button').click();
+            await expect(page).toHaveURL(/inventory/);
+        })
+    })
 });
 test.describe('Login page: Validate login form', () => {
     test.beforeEach('Go to login page', async ({ page }) => {
