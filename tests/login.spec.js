@@ -2,7 +2,7 @@ import { test , expect} from '@playwright/test';
 const data = require('../test-data/user.json')
 const user = data.user
 const password = data.password
-test.describe('Login page: Which test user can login successfully', () => {
+test.describe('Which test user can login successfully', () => {
     user.forEach((u) => {
         test(`Login with ${u.username}`, async ({ page }) => {
             await page.goto('https://www.saucedemo.com/');
@@ -14,7 +14,7 @@ test.describe('Login page: Which test user can login successfully', () => {
         })
     })
 });
-test.describe('Login page: Validate login form', () => {
+test.describe('Validate login form', () => {
     test.beforeEach('Go to login page', async ({ page }) => {
         await page.goto('https://www.saucedemo.com/');
         await expect(page.getByText('Swag Labs')).toBeVisible();
